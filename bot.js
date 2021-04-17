@@ -28,7 +28,7 @@ let gameSlots = 5;
 function constructDashboardEmbed(games) {
   let embed = new Discord.MessageEmbed()
     .setTitle(DASHBOARD_TITLE)
-    .setDescription("Find a game to join!" + Math.random())
+    .setDescription("Find a game to join!")
     .setTimestamp()
     .setFooter("Join a game!", "https://play.thezonerpg.com/favicon-32x32.png")
     .setColor("#ffe36a");
