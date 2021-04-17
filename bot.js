@@ -84,7 +84,9 @@ function constructDashboardEmbed(games) {
         game.gameId +
         "```";
 
-      embed.addField(`Table ${i + 1}`, strTable, true);
+      let strStream = i === 0 ? " 🔴 STREAM" : "";
+
+      embed.addField(`Table ${i + 1} ${strStream}`, strTable, true);
     }
   });
   return embed;
