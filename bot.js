@@ -74,7 +74,7 @@ function constructDashboardEmbed(games) {
 
 // Update dashboard in the channel
 function updateDashboard() {
-  let channel = test_channel;
+  // let channel = test_channel;
   let embed = constructDashboardEmbed(games);
 
   // Check if there is already a dashboard in the channel
@@ -201,7 +201,7 @@ client.once("ready", () => {
   test_channel = guild.channels.cache.find(
     (channel) => channel.name === TEST_CHANNEL
   );
-  test_channel.send("Bot is awake! Hello there here! " + new Date().toString());
+  // test_channel.send("Bot is awake! Hello there here! " + new Date().toString());
 
   // Actual channel
   channel = guild.channels.cache.find(
