@@ -27,7 +27,7 @@ let numTablesToShow = 5;
 
 // Initial values
 let initialGameIdString =
-  "C2HQZ,8GDIZ,SH4RT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
+  "C2HQZ,8GDIZ,TMTKT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
 
 // Dashboard embed
 function constructDashboardEmbed(games) {
