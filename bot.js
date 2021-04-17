@@ -23,6 +23,11 @@ const DASHBOARD_TITLE = "☢️ The Zone";
 const TEST_CHANNEL = "bot-playground";
 const DASHBOARD_CHANNEL = "find-your-game";
 let gameSlots = 4;
+let numTablesToShow = 5;
+
+// Initial values
+let initialGameIdString =
+  "C2HQZ,8GDIZ,SH4RT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
 
 // Dashboard embed
 function constructDashboardEmbed(games) {
@@ -34,51 +39,53 @@ function constructDashboardEmbed(games) {
     .setColor("#ffe36a");
 
   Object.values(games).forEach((game, i) => {
-    let playerCount =
-      game.players === undefined ? 0 : Object.entries(game.players).length;
+    if (i < numTablesToShow) {
+      let playerCount =
+        game.players === undefined ? 0 : Object.entries(game.players).length;
 
-    // Player names
-    let playerNames = "";
-    if (playerCount > 0) {
-      Object.values(game.players).forEach((player, playerIndex) => {
-        let separator = playerIndex < playerCount - 1 ? ", " : "";
-        return (playerNames += player.name + separator);
-      });
-    } else {
-      playerNames = "Game empty";
+      // Player names
+      let playerNames = "";
+      if (playerCount > 0) {
+        Object.values(game.players).forEach((player, playerIndex) => {
+          let separator = playerIndex < playerCount - 1 ? ", " : "";
+          return (playerNames += player.name + separator);
+        });
+      } else {
+        playerNames = "Game empty";
+      }
+
+      let gameState;
+      if (game.completed === true) {
+        gameState = "🌀 Game Over";
+      } else if (game.started === true) {
+        gameState = "▶️ Game started";
+      } else {
+        gameState = "👋 Not started";
+      }
+
+      let strPlayerCount = playerCount + " of " + gameSlots + " slots";
+      let strCta =
+        playerCount >= gameSlots
+          ? "Full"
+          : "[__**Join!**__](https://play.thezonerpg.com/game/" +
+            game.gameId +
+            ")";
+
+      let strTable =
+        gameState +
+        "\n" +
+        strCta +
+        "\n```" +
+        strPlayerCount +
+        "\n---------------\n" +
+        "Operation\n" +
+        game.operationName +
+        "\n" +
+        game.gameId +
+        "```";
+
+      embed.addField(`Table ${i + 1}`, strTable, true);
     }
-
-    let gameState;
-    if (game.completed === true) {
-      gameState = "🌀 Game Over";
-    } else if (game.started === true) {
-      gameState = "▶️ Game started";
-    } else {
-      gameState = "👋 Not started";
-    }
-
-    let strPlayerCount = playerCount + " of " + gameSlots + " slots";
-    let strCta =
-      playerCount >= gameSlots
-        ? "Full"
-        : "[__**Join!**__](https://play.thezonerpg.com/game/" +
-          game.gameId +
-          ")";
-
-    let strTable =
-      gameState +
-      "\n" +
-      strCta +
-      "\n```" +
-      strPlayerCount +
-      "\n---------------\n" +
-      "Operation\n" +
-      game.operationName +
-      "\n" +
-      game.gameId +
-      "```";
-
-    embed.addField(`Table ${i + 1}`, strTable, true);
   });
   return embed;
 }
@@ -275,8 +282,8 @@ client.once("ready", () => {
     (channel) => channel.name === DASHBOARD_CHANNEL
   );
 
-  let gameIdString = "C2HQZ,8GDIZ,SH4RT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
-  let gameIdArray = gameIdsStringToArray(gameIdString);
+  // let gameIdString = "C2HQZ,8GDIZ,SH4RT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
+  let gameIdArray = gameIdsStringToArray(initialGameIdString);
   getInitialFirebaseData(gameIdArray);
 
   updateDashboard();
