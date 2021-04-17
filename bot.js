@@ -275,8 +275,7 @@ client.once("ready", () => {
     (channel) => channel.name === DASHBOARD_CHANNEL
   );
 
-  let gameIdString =
-    "3U3WS, ATZ5R, C2HQZ, 3U3WS, ATZ5R, C2HQZ, C2HQZ, 3U3WS, ATZ5R, C2HQZ";
+  let gameIdString = "C2HQZ,8GDIZ,SH4RT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
   let gameIdArray = gameIdsStringToArray(gameIdString);
   getInitialFirebaseData(gameIdArray);
 
