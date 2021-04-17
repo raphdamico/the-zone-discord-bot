@@ -23,7 +23,7 @@ const DASHBOARD_TITLE = "☢️ The Zone";
 const TEST_CHANNEL = "bot-playground";
 const DASHBOARD_CHANNEL = "find-your-game";
 let gameSlots = 4;
-let numTablesToShow = 5;
+let numTablesToShow = 6;
 
 // Initial values
 let initialGameIdString =
