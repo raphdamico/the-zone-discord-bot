@@ -48,6 +48,15 @@ function constructDashboardEmbed(games) {
       playerNames = "Game empty";
     }
 
+    let gameState;
+    if (game.completed === true) {
+      gameState = "🌀 Game Over";
+    } else if (game.started === true) {
+      gameState = "▶️ Game started";
+    } else {
+      gameState = "👋 Not started";
+    }
+
     let strPlayerCount = playerCount + " of " + gameSlots + " slots";
     let strCta =
       playerCount >= gameSlots
@@ -57,6 +66,8 @@ function constructDashboardEmbed(games) {
           ")";
 
     let strTable =
+      gameState +
+      "\n" +
       strCta +
       "\n```" +
       strPlayerCount +
@@ -142,6 +153,10 @@ function bindFirebase(gameIds) {
             players: game.players,
             gameId: game.gameId,
             operationName: game.operationName,
+            started: game.started,
+            dateStarted: game.started,
+            completed: game.completed,
+            dateCompleted: game.completed,
           };
         }
 
