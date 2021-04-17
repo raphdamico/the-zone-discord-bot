@@ -22,7 +22,7 @@ const BOT_NAME = "The Zone";
 const DASHBOARD_TITLE = "☢️ The Zone";
 const TEST_CHANNEL = "bot-playground";
 const DASHBOARD_CHANNEL = "find-your-game";
-let gameSlots = 5;
+let gameSlots = 4;
 
 // Dashboard embed
 function constructDashboardEmbed(games) {
@@ -78,7 +78,7 @@ function constructDashboardEmbed(games) {
       game.gameId +
       "```";
 
-    embed.addField(`Table ${i}`, strTable, true);
+    embed.addField(`Table ${i + 1}`, strTable, true);
   });
   return embed;
 }
@@ -106,6 +106,58 @@ function updateDashboard() {
     } else {
       // Update the existing dashboard
       dashboardMessage.edit(embed);
+    }
+
+    updateChatChannels();
+  });
+}
+
+function updateChatChannels() {
+  let numToWord = [
+    "zero",
+    "one",
+    "two",
+    "three",
+    "four",
+    "five",
+    "six",
+    "seven",
+    "eight",
+    "nine",
+    "ten",
+    "eleven",
+    "twelve",
+  ];
+
+  let strLinkIntro = "Link to The Zone game for this table";
+  let strUrl = `https://play.thezonerpg.com/game/`;
+
+  Object.keys(games).forEach((gameId, i) => {
+    // Find channels
+    let chatChannel = guild.channels.cache.find(
+      (channel) => channel.name === `table-${numToWord[i + 1]}-chat`
+    );
+
+    // Find the message with the game link
+    // and edit the message
+    if (chatChannel !== undefined) {
+      chatChannel.setTopic(
+        `Channel for a Zone Mission: 🔗 https://play.thezonerpg.com/game/${gameId}`
+      );
+      chatChannel.messages.fetch({ limit: 100 }).then((msgs) => {
+        // Find the last message
+        linkMsg = msgs.find((msg) => msg.content.includes(strLinkIntro));
+
+        // Update it if it already exists
+        let strMessageToPost =
+          "**" + strLinkIntro + ": " + strUrl + gameId + "**";
+        if (linkMsg !== undefined) {
+          linkMsg.edit(strMessageToPost);
+          linkMsg.pin();
+        } else {
+          chatChannel.send(strMessageToPost).then((message) => message.pin());
+        }
+      });
     }
   });
 }
@@ -209,7 +261,7 @@ client.once("ready", () => {
   console.log("Ready!");
 
   // Get The Zone Discord Server
-  let guild = client.guilds.cache.get("813189039065792562");
+  guild = client.guilds.cache.get("813189039065792562");
 
   // Channels
   // Test Channel
