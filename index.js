@@ -3,6 +3,9 @@
 const express = require("express");
 const fs = require("fs");
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 //////////////////////////////////////////////////////////////////////
 // Firebase App (the core Firebase SDK) is always required and
 // must be listed before other Firebase SDKs
@@ -24,7 +27,7 @@ const discordBot = require("./bot");
 
 //////////////////////////////////////////////////////////////////////
 const path = require('path')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5001
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
