@@ -23,11 +23,11 @@ const DASHBOARD_TITLE = "☢️ The Zone";
 const TEST_CHANNEL = "bot-playground";
 const DASHBOARD_CHANNEL = "find-your-game";
 let gameSlots = 4;
-let numTablesToShow = 6;
+let numTablesToShow = 9;
 
 // Initial values
-let initialGameIdString =
-  "C2HQZ,8GDIZ,TMTKT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
+let initialGameIdString = "C2HQZ,8GDIZ,TMTKT,AW0UN,6OS59,4QUJ6";
+// "C2HQZ,8GDIZ,TMTKT,AW0UN,6OS59,4QUJ6,9Z1MS,Q30AB,FLGFN";
 
 // Dashboard embed
 function constructDashboardEmbed(games) {
