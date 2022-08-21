@@ -306,3 +306,10 @@ client.on("message", (message) => {
     }
   }
 });
+
+client.on("message", (message) => {
+  if (message.content.includes("!ping")) {
+    test_channel.send("Bot is awake! Hello there here! " + new Date().toString());
+  }
+});
+
